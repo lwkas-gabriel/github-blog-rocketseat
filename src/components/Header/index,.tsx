@@ -1,8 +1,11 @@
+import logo from '../../assets/logo.svg'
+import { HeaderContainer } from './styles';
+
 export function Header(){
     return (
-        <header>
-            <img src="" alt="" />
+        <HeaderContainer>
+            <img src={logo} alt="" />
             <h1>GITHUB BLOG</h1>
-        </header>
+        </HeaderContainer>
     );
 }
