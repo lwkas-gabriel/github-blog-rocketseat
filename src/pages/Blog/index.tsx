@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { GithubContext } from "../../context/GithubContext";
 import { BlogContainer, Post, PostHeader, PostList,PostText,SearchForm } from "./styles";
+import { dateTimeToNowFormatter } from "../../utils/formatter";
 export function Blog(){
     const { issues } = useContext(GithubContext);
 
@@ -22,7 +23,7 @@ export function Blog(){
                             <Post key={issue.number}>
                                 <PostHeader>
                                     <h3>{issue.title}</h3>
-                                    <span>{issue.createdAt}</span>
+                                    <span>{dateTimeToNowFormatter(issue.createdAt)}</span>
                                 </PostHeader>
                                 <PostText>{issue.body}</PostText>
                             </Post>
