@@ -12,12 +12,24 @@ export interface Profile{
     followers: number,
 }
 
+export interface Issue{
+    number: number,
+    title: string,
+    linkToRepo: string,
+    comments: number,
+    login: string,
+    createdAt: string,
+    body: string,
+}
+
 interface GithubProviderProps{
     children: ReactNode;
 }
 
 interface GithubContextType{
     profile: Profile;
+    searchIssues: (query?:string) => void;
+    issues: Issue[];
     //setProfileId: (id: string) => void;
     //fetchProfile: (id: string) => Promise<void>;
     //createTransaction: (data: CreateTransactionInput) => Promise<void>
@@ -28,10 +40,13 @@ export const GithubContext = createContext({} as GithubContextType);
 export function GithubProvider({children}: GithubProviderProps){
      
     const [profile, setProfile] = useState<Profile>({} as Profile);
+    const [issues, setIssues] = useState<Issue[]>([]);
      
     //const [profileId, setProfileId] = useState('');
 
     const profileId = "lwkas-gabriel";
+    const repo = "github-blog-rocketseat";
+    //q=${texto}%20repo:${username}/${repo}
 
     async function fetchProfile(profileId: string){
         const { data } = await api.get(`users/${profileId}`);
@@ -51,13 +66,51 @@ export function GithubProvider({children}: GithubProviderProps){
         //console.log(profile);
     }
 
+    async function fetchIssues(){
+        const { data } = await api.get(`/search/issues?q=%20repo:${profileId}/${repo}`, {
+            params:{
+                _sort: 'created_at',
+                _order: 'desc',
+            }
+        });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const issuesList: Issue[] = data.items.map((r: any)=>{
+            // const issue: Issue = {
+            //     title,
+            //     linkToRepo: r.html_url,
+            //     comments: r.comments,
+            //     login: r.user.login,
+            //     createdAt: r.created_at,
+            //     body: r.body
+            // }
+            const {number, title, html_url, comments, login, created_at, body} = r
+            return {number, title, linkToRepo: html_url, comments, login, createdAt:created_at, body};
+        });
+        setIssues(issuesList);
+        console.log(issuesList);
+    }
+
+    async function searchIssues(texto?: string){
+        const response = await api.get(`/search/issues?q=${texto}%20repo:${profileId}/${repo}`, {
+            params:{
+                _sort: 'created_at',
+                _order: 'desc',
+                q: texto,
+            }
+        });
+        console.log(response.data);
+    }
+
     useEffect(() => {
         fetchProfile(profileId);
+        fetchIssues();
     }, [profileId]);
 
     return (
         <GithubContext.Provider value={{
             profile,
+            searchIssues,
+            issues,
             //setProfileId,
         }}>
             {children}
