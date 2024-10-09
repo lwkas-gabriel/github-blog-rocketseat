@@ -8,40 +8,44 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
 import { faBuilding } from "@fortawesome/free-regular-svg-icons/faBuilding";
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons/faUserGroup";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
+import { GithubContext } from '../../context/GithubContext';
+import { useContext } from 'react';
 
 
 export function Header(){
+    const { profile } = useContext(GithubContext);
+
     return (
         <HeaderContainer>
             <img src={logo} alt="" />
             <h1>GITHUB BLOG</h1>
 
             <Profile>
-                <img src="https://github.com/lwkas-gabriel.png" alt="" />
+                <img src={profile.avatarUrl} alt="" />
                 <ProfileInfo>
                     <ProfileHeader>
-                        <h3>Lucas Gabriel Correia Barros</h3>
-                        <a href="">GITHUB <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></a>
+                        <h3>{profile.name}</h3>
+                        <a href={profile.profileUrl}>GITHUB <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></a>
                     </ProfileHeader>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis soluta sint id assumenda possimus, veniam totam enim aspernatur praesentium minima!</p>
+                    <p>{profile.bio}</p>
                     <ul>
                         <li>
                             <label htmlFor="">
                                 <FontAwesomeIcon icon={faGithub} />
                             </label>
-                            lwkas-gabriel
+                            {profile.login}
                         </li>
                         <li>
                             <label htmlFor="">
                                 <FontAwesomeIcon icon={faBuilding} />
                             </label>
-                            Rocketseat
+                            {profile.company}
                         </li>
                         <li>
                             <label htmlFor="">
                                 <FontAwesomeIcon icon={faUserGroup} />
                             </label>
-                            51 seguidores
+                            {profile.followers} seguidores
                         </li>
                     </ul>
                 </ProfileInfo>
