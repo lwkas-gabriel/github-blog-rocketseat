@@ -75,14 +75,6 @@ export function GithubProvider({children}: GithubProviderProps){
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const issuesList: Issue[] = data.items.map((r: any)=>{
-            // const issue: Issue = {
-            //     title,
-            //     linkToRepo: r.html_url,
-            //     comments: r.comments,
-            //     login: r.user.login,
-            //     createdAt: r.created_at,
-            //     body: r.body
-            // }
             const {number, title, html_url, comments, login, created_at, body} = r
             return {number, title, linkToRepo: html_url, comments, login, createdAt:created_at, body};
         });

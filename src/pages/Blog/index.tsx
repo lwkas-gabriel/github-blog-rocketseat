@@ -10,7 +10,7 @@ export function Blog(){
             <SearchForm action="">
                 <div>
                     <h4>Publicações</h4>
-                    <label htmlFor="">6 Publicações</label>
+                    <label htmlFor="">{issues.length} Publicações</label>
                 </div>
                 <input type="text" placeholder="Buscar Conteúdo" />
             </SearchForm>
