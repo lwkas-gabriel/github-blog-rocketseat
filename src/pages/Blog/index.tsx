@@ -1,6 +1,10 @@
 
+import { useContext } from "react";
+import { GithubContext } from "../../context/GithubContext";
 import { BlogContainer, Post, PostHeader, PostList,PostText,SearchForm } from "./styles";
 export function Blog(){
+    const { issues } = useContext(GithubContext);
+
     return (
         <BlogContainer>
             <SearchForm action="">
@@ -12,14 +16,19 @@ export function Blog(){
             </SearchForm>
 
             <PostList>
-                <Post>
-                    <PostHeader>
-                        <h3>Lorem, ipsum dolor.</h3>
-                        <span>Há 1 dia</span>
-                    </PostHeader>
-                    <PostText>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi rerum alias atque sunt delectus reiciendis, fugit dolor, at quia ducimus voluptate molestiae debitis iste rem. Temporibus, nam voluptas necessitatibus vel quod, voluptatem numquam repellat natus dignissimos sapiente tenetur veritatis? Culpa perspiciatis minima distinctio at porro sint voluptas laboriosam ullam libero! Placeat expedita nemo tenetur labore obcaecati consectetur laboriosam ipsum cumque qui enim distinctio recusandae, possimus, est nam praesentium tempora esse ducimus similique minus fuga mollitia, aspernatur consequuntur quam quas? Dicta incidunt et inventore, provident cumque nobis accusamus saepe delectus fugiat consequuntur eos autem praesentium repellat eius nam! In, explicabo laboriosam!</PostText>
-                </Post>
-
+                {
+                    issues.map((issue) => {
+                        return (
+                            <Post key={issue.number}>
+                                <PostHeader>
+                                    <h3>{issue.title}</h3>
+                                    <span>{issue.createdAt}</span>
+                                </PostHeader>
+                                <PostText>{issue.body}</PostText>
+                            </Post>
+                        );
+                    })
+                }
             </PostList>
 
         </BlogContainer>
