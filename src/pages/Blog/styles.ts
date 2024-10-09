@@ -54,7 +54,7 @@ export const PostList = styled.section`
     margin-bottom: 246px;
 `;
 
-export const Post = styled.div`
+export const Post = styled.a`
     width: 416px;
     height: 260px;
     display: flex;
@@ -62,11 +62,18 @@ export const Post = styled.div`
     flex-direction: column;
     border-radius: 10px;
     padding: 32px;
+    transition: .5s;
+    cursor: pointer;
 
     background-color: ${props => props.theme["base-post"]};
 
     p{
         color: ${props => props.theme["base-text"]};
+    }
+
+    &:hover{
+        transition: .5ms;
+        border: 1px solid ${props => props.theme["base-span"]};
     }
 `;
 
