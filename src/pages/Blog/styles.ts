@@ -86,3 +86,12 @@ export const PostHeader = styled.div`
         color: ${props => props.theme["base-span"]}
     }
 `;
+
+export const PostText = styled.p`
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 4; /* Altere o número de linhas desejadas */
+    line-clamp: 4; /* Compatibilidade */
+    max-height: 100px; /* Defina uma altura máxima conforme o número de linhas */
+`;
