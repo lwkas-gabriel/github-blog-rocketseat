@@ -70,7 +70,7 @@ export function GithubProvider({children}: GithubProviderProps){
         const { data } = await api.get(`/search/issues?q=%20repo:${profileId}/${repo}`, {
             params:{
                 _sort: 'created_at',
-                _order: 'desc',
+                _order: 'asc',
             }
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
