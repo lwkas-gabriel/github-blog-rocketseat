@@ -18,7 +18,6 @@ export interface Issue{
     title: string,
     linkToRepo: string,
     comments: number,
-    login: string,
     createdAt: string,
     body: string,
 }
@@ -69,24 +68,26 @@ export function GithubProvider({children}: GithubProviderProps){
     }
 
     async function searchIssues(query: string){
-        const url = `search/issues`;
+        const url = `search/issues?q=${query}%20repo:lwkas-gabriel/github-blog-rocketseat`;
         const params = {
-            q: `${query} repo:${profileId}/${repo}`,
-            sort: 'number',
-            order: 'asc',
-            };
+            //q: `${query} repo:${profileId}/${repo}`,
+            _sort: 'number',
+            _order: 'asc',
+        };
         const { data } = await api.get(url, { params });
-
+        //console.log(data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const issuesList = data.map((issue: any) => ({
+        const issuesList: Issue[] = data.items.map((issue: any) => ({
             number: issue.number,
             title: issue.title,
-            url: issue.html_url,
-            user: issue.user.login,
-            created_at: issue.created_at,
+            linkToRepo: issue.html_url,
+            comments: issue.comments,
+            createdAt: issue.created_at,
+            body: issue.body
         }));
+        issuesList.sort((a, b) => a.number - b.number);
         setIssues(issuesList);
-        console.log(issuesList);
+        //console.log(issuesList);
     }
 
     async function fetchAllIssues(){

@@ -11,8 +11,26 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faAr
 
 import { dateTimeToNowFormatter } from "../../utils/formatter";
 import { Profile, ProfileInfo, ProfileHeader } from "./styles";
+import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+const searchFormSchema = z.object({
+    query: z.string(),
+});
+
+type SearchFormInput = z.infer<typeof searchFormSchema>;
+
 export function Blog(){
-    const { profile, issues } = useContext(GithubContext);
+    const { profile, issues, searchIssues } = useContext(GithubContext);
+    const { handleSubmit, register } = useForm<SearchFormInput>({
+        resolver: zodResolver(searchFormSchema),
+    });
+
+    function handleSearchIssues(data: SearchFormInput){
+        console.log(1);
+        searchIssues(data.query);
+    }
 
     return (
         <BlogContainer>
@@ -47,12 +65,12 @@ export function Blog(){
                 </ProfileInfo>
             </Profile>
 
-            <SearchForm action="">
+            <SearchForm action="" onSubmit={handleSubmit(handleSearchIssues)}>
                 <div>
                     <h4>Publicações</h4>
                     <label htmlFor="">{issues.length} Publicações</label>
                 </div>
-                <input type="text" placeholder="Buscar Conteúdo" />
+                <input type="text" placeholder="Buscar Conteúdo" {...register('query')} />
             </SearchForm>
 
             <PostList>
