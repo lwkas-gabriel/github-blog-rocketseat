@@ -1,3 +1,4 @@
+ 
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { api } from "../lib/axios";
 
@@ -28,8 +29,9 @@ interface GithubProviderProps{
 
 interface GithubContextType{
     profile: Profile;
-    searchIssues: (query?:string) => void;
+    searchIssues: (query:string) => void;
     issues: Issue[];
+    getIssue: (number: number) => Issue | undefined;
     //setProfileId: (id: string) => void;
     //fetchProfile: (id: string) => Promise<void>;
     //createTransaction: (data: CreateTransactionInput) => Promise<void>
@@ -66,36 +68,49 @@ export function GithubProvider({children}: GithubProviderProps){
         //console.log(profile);
     }
 
-    async function fetchIssues(){
-        const { data } = await api.get(`/search/issues?q=%20repo:${profileId}/${repo}`, {
-            params:{
-                _sort: 'created_at',
-                _order: 'asc',
-            }
-        });
+    async function searchIssues(query: string){
+        const url = `search/issues`;
+        const params = {
+            q: `${query} repo:${profileId}/${repo}`,
+            sort: 'number',
+            order: 'asc',
+            };
+        const { data } = await api.get(url, { params });
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const issuesList: Issue[] = data.items.map((r: any)=>{
-            const {number, title, html_url, comments, login, created_at, body} = r
-            return {number, title, linkToRepo: html_url, comments, login, createdAt:created_at, body};
-        });
+        const issuesList = data.map((issue: any) => ({
+            number: issue.number,
+            title: issue.title,
+            url: issue.html_url,
+            user: issue.user.login,
+            created_at: issue.created_at,
+        }));
         setIssues(issuesList);
         console.log(issuesList);
     }
 
-    async function searchIssues(texto?: string){
-        const response = await api.get(`/search/issues?q=${texto}%20repo:${profileId}/${repo}`, {
-            params:{
-                _sort: 'created_at',
-                _order: 'desc',
-                q: texto,
-            }
+    async function fetchAllIssues(){
+        const url = `repos/${profileId}/${repo}/issues`;
+        const { data } = await api.get(url);
+        //console.log('Dados recebidos:', data);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const issuesList: Issue[] = data.map((r: any)=>{
+            const { number, title, html_url, comments, created_at, body } = r
+            return { number, title, linkToRepo: html_url, comments, createdAt:created_at, body };
         });
-        console.log(response.data);
+        //console.log('Lista de issues:', issuesList);
+        issuesList.sort((a, b) => a.number - b.number);
+        setIssues(issuesList);
+    }
+
+    function getIssue(number: number){
+        return issues.find((issue) => issue.number === number);
     }
 
     useEffect(() => {
         fetchProfile(profileId);
-        fetchIssues();
+        fetchAllIssues();
     }, [profileId]);
 
     return (
@@ -103,6 +118,7 @@ export function GithubProvider({children}: GithubProviderProps){
             profile,
             searchIssues,
             issues,
+            getIssue,
             //setProfileId,
         }}>
             {children}
