@@ -28,9 +28,8 @@ interface GithubProviderProps{
 
 interface GithubContextType{
     profile: Profile;
-    searchIssues: (query:string) => void;
+    searchIssues: (query:string) => Promise<void>;
     issues: Issue[];
-    getIssue: (number: number) => Issue | undefined;
     //setProfileId: (id: string) => void;
     //fetchProfile: (id: string) => Promise<void>;
     //createTransaction: (data: CreateTransactionInput) => Promise<void>
@@ -105,6 +104,7 @@ export function GithubProvider({children}: GithubProviderProps){
         setIssues(issuesList);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function getIssue(number: number){
         return issues.find((issue) => issue.number === number);
     }
@@ -119,7 +119,6 @@ export function GithubProvider({children}: GithubProviderProps){
             profile,
             searchIssues,
             issues,
-            getIssue,
             //setProfileId,
         }}>
             {children}
