@@ -104,11 +104,6 @@ export function GithubProvider({children}: GithubProviderProps){
         setIssues(issuesList);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    function getIssue(number: number){
-        return issues.find((issue) => issue.number === number);
-    }
-
     useEffect(() => {
         fetchProfile(profileId);
         fetchAllIssues();
