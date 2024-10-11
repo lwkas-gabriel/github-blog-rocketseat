@@ -138,6 +138,7 @@ export const Post = styled(Link)`
     padding: 32px;
     transition: .5s;
     cursor: pointer;
+    text-decoration: none;
 
     background-color: ${props => props.theme["base-post"]};
 
