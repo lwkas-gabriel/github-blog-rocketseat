@@ -136,7 +136,6 @@ export const Post = styled(Link)`
     flex-direction: column;
     border-radius: 10px;
     padding: 32px;
-    transition: .5s;
     cursor: pointer;
     text-decoration: none;
 
@@ -147,7 +146,7 @@ export const Post = styled(Link)`
     }
 
     &:hover{
-        transition: .5ms;
+        transition: border-color .7ms;
         border: 1px solid ${props => props.theme["base-span"]};
     }
 `;
