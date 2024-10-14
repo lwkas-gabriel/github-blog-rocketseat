@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import ReactMarkdown from "react-markdown";
-import "prismjs/themes/prism.css";
+//import "prismjs/themes/prism.css";
 
 export const PostContainer = styled.main`
     display: flex;
@@ -12,15 +12,14 @@ export const PostContainer = styled.main`
 `;
 
 export const InfoHeader = styled.section`
+    display: flex;
     height: 160px;
     width: 100%;
-    display: flex;
     flex-direction: column;
     background-color: ${props => props.theme["base-post"]};
     border-radius: 10px;
     padding: 20px 20px 0 20px;
     margin-top: -90px;
-    max-width: 868px;
 
     div {
         display: flex;
@@ -74,37 +73,82 @@ export const GithubMarkdownBody = styled(ReactMarkdown)`
         color: ${props => props.theme.blue};
         font-size: 1rem;
         font-weight: bold;
-        margin-top: 24px;
+        margin-top: 2rem;
     }
 
     pre {
         background: ${props => props.theme["base-post"]};
         padding: 1rem;
+        margin-top: 1.5rem;
     }
 
     code {
         padding: 0.2rem 0.4rem;
         border-radius: 3px;
+        font-family: "Fira Code", sans-serif;
     }
 
-    /* Estilos para os tokens do Prism */
     .token.comment,
-    .token.prolog {
-        color: #6272a4; /* Cor dos comentários */
+    .token.block-comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+        color: #6272a4; /* Cor para os comentários */
+        font-style: italic;
     }
 
     .token.punctuation {
-        color: #f8f8f2; /* Cor da pontuação */
+        color: ${props => props.theme["base-text"]}; /* Cor para pontuação */
+    }
+
+    .token.property,
+    .token.tag,
+    .token.boolean,
+    .token.number,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
+        color: #6AD445; /* Cor para números e valores booleanos */
     }
 
     .token.selector,
-    .token.tag {
-        color: #ff79c6; /* Cor das tags */
+    .token.attr-name,
+    .token.string,
+    .token.char,
+    .token.builtin,
+    .token.inserted {
+        color: #6AD445; /* Cor para strings */
+    }
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .token.variable {
+        color: #f8f8f2; /* Cor para operadores e variáveis */
+    }
+
+    .token.atrule,
+    .token.attr-value,
+    .token.keyword {
+        color: #80ABD6; /* Cor para palavras-chave */
     }
 
     .token.function {
-        color: #50fa7b; /* Cor das funções */
+        color: #66d9ef; /* Cor para funções */
     }
 
-    /* Outras regras de estilo para diferentes tokens */
+    .token.regex,
+    .token.important {
+        color: #ffb86c; /* Cor para regex */
+    }
+
+    .token.important,
+    .token.bold {
+        font-weight: bold;
+    }
+
+    .token.italic {
+        font-style: italic;
+    }
 `;
+
