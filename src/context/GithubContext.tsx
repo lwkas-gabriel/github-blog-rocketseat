@@ -41,12 +41,9 @@ export function GithubProvider({children}: GithubProviderProps){
      
     const [profile, setProfile] = useState<Profile>({} as Profile);
     const [issues, setIssues] = useState<Issue[]>([]);
-     
-    //const [profileId, setProfileId] = useState('');
 
     const profileId = "lwkas-gabriel";
     const repo = "github-blog-rocketseat";
-    //q=${texto}%20repo:${username}/${repo}
 
     async function fetchProfile(profileId: string){
         const { data } = await api.get(`users/${profileId}`);
@@ -114,7 +111,6 @@ export function GithubProvider({children}: GithubProviderProps){
             profile,
             searchIssues,
             issues,
-            //setProfileId,
         }}>
             {children}
         </GithubContext.Provider>

@@ -54,6 +54,12 @@ export const ProfileHeader = styled.div`
             text-decoration: none;
             cursor: pointer;
         }
+
+        @media (max-width: 595px){
+            flex-direction: column;
+            align-items: start;
+            gap: 0;
+        }
 `;
 
 export const ProfileInfo = styled.div`
@@ -78,7 +84,25 @@ export const ProfileInfo = styled.div`
 
                 label{
                     color: ${props => props.theme["base-labal"]};
+
+                    .icon-size{
+                        width: 18px;
+                        height: 18px;
+                    }
                 }
+            }
+
+            @media (max-width: 595px){
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 595px){
+            font-size: .7rem;
+
+            p{
+                margin-bottom: .5rem;
             }
         }
 `;
@@ -129,7 +153,8 @@ export const PostList = styled.section`
 `;
 
 export const Post = styled(Link)`
-    width: 416px;
+    max-width: 416px;
+    min-width: 200px;
     height: 260px;
     display: flex;
     justify-content: space-around;
