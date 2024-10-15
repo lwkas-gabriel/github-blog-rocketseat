@@ -24,7 +24,7 @@ export function Post(){
             <InfoHeader>
                 <div>
                     <StyledLink to="/">{'< '}VOLTAR</StyledLink>
-                    <StyledLink to={{pathname: issue.linkToRepo}}>VER NO GITHUB <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></StyledLink>
+                    <StyledLink to="#" as="a" href={issue.linkToRepo} target="_blank" rel="noopener noreferrer">VER NO GITHUB <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></StyledLink>
                 </div>
                 <h3>{issue.title}</h3>
                 <ul>
