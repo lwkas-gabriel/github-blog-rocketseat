@@ -11,7 +11,7 @@ export const BlogContainer = styled.main`
 `;
 
 export const Profile = styled.section`
-    height: 230px;
+    height: fit-content;
     display: flex;
     align-items: center;
     padding: 0 32px;
@@ -99,7 +99,8 @@ export const ProfileInfo = styled.div`
         }
 
         @media (max-width: 595px){
-            font-size: .7rem;
+            height: fit-content;
+            font-size: .8rem;
 
             p{
                 margin-bottom: .5rem;
