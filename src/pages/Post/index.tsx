@@ -3,7 +3,7 @@ import { GithubContext, Issue } from "../../context/GithubContext";
 import { useContext, useEffect } from "react";
 import { GithubMarkdownBody, InfoHeader, IssueBodyContainer, Item, PostContainer, StyledLink } from "./styles";
 import { dateTimeToNowFormatter } from "../../utils/formatter";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faCalendar, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import remarkGfm from "remark-gfm";
@@ -36,13 +36,13 @@ export function Post(){
                     </Item>
                     <Item>
                         <label htmlFor="">
-                            <FontAwesomeIcon icon={faGithub} />
+                            <FontAwesomeIcon icon={faCalendar} />
                         </label>
                         {dateTimeToNowFormatter(issue.createdAt)}
                     </Item>
                     <Item>
                         <label htmlFor="">
-                            <FontAwesomeIcon icon={faGithub} />
+                            <FontAwesomeIcon icon={faComment} />
                         </label>
                         {issue.comments+' '}Comentários
                     </Item>
