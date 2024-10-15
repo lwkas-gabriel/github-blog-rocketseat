@@ -64,7 +64,7 @@ export function GithubProvider({children}: GithubProviderProps){
     }
 
     async function searchIssues(query: string){
-        const url = `search/issues?q=${query}%20repo:lwkas-gabriel/github-blog-rocketseat`;
+        const url = `search/issues?q=${query}%20repo:lwkas-gabriel/github-blog-rocketseat%20state:open`;
         const params = {
             //q: `${query} repo:${profileId}/${repo}`,
             _sort: 'number',
