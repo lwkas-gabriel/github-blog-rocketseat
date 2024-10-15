@@ -11,7 +11,7 @@ export const BlogContainer = styled.main`
 `;
 
 export const Profile = styled.section`
-    height: 230px;
+    height: fit-content;
     display: flex;
     align-items: center;
     padding: 0 32px;
@@ -54,6 +54,12 @@ export const ProfileHeader = styled.div`
             text-decoration: none;
             cursor: pointer;
         }
+
+        @media (max-width: 595px){
+            flex-direction: column;
+            align-items: start;
+            gap: 0;
+        }
 `;
 
 export const ProfileInfo = styled.div`
@@ -78,7 +84,26 @@ export const ProfileInfo = styled.div`
 
                 label{
                     color: ${props => props.theme["base-labal"]};
+
+                    .icon-size{
+                        width: 18px;
+                        height: 18px;
+                    }
                 }
+            }
+
+            @media (max-width: 595px){
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 595px){
+            height: fit-content;
+            font-size: .8rem;
+
+            p{
+                margin-bottom: .5rem;
             }
         }
 `;
@@ -129,15 +154,16 @@ export const PostList = styled.section`
 `;
 
 export const Post = styled(Link)`
-    width: 416px;
+    max-width: 416px;
+    min-width: 200px;
     height: 260px;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     border-radius: 10px;
     padding: 32px;
-    transition: .5s;
     cursor: pointer;
+    text-decoration: none;
 
     background-color: ${props => props.theme["base-post"]};
 
@@ -146,7 +172,7 @@ export const Post = styled(Link)`
     }
 
     &:hover{
-        transition: .5ms;
+        transition: border-color .7ms;
         border: 1px solid ${props => props.theme["base-span"]};
     }
 `;

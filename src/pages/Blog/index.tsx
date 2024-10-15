@@ -45,19 +45,19 @@ export function Blog(){
                     <ul>
                         <li>
                             <label htmlFor="">
-                                <FontAwesomeIcon icon={faGithub} />
+                                <FontAwesomeIcon icon={faGithub} className="icon-size" />
                             </label>
                             {profile.login}
                         </li>
                         <li>
                             <label htmlFor="">
-                                <FontAwesomeIcon icon={faBuilding} />
+                                <FontAwesomeIcon icon={faBuilding} className="icon-size" />
                             </label>
                             {profile.company}
                         </li>
                         <li>
                             <label htmlFor="">
-                                <FontAwesomeIcon icon={faUserGroup} />
+                                <FontAwesomeIcon icon={faUserGroup} className="icon-size" />
                             </label>
                             {profile.followers} seguidores
                         </li>

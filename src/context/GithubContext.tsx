@@ -41,12 +41,9 @@ export function GithubProvider({children}: GithubProviderProps){
      
     const [profile, setProfile] = useState<Profile>({} as Profile);
     const [issues, setIssues] = useState<Issue[]>([]);
-     
-    //const [profileId, setProfileId] = useState('');
 
     const profileId = "lwkas-gabriel";
     const repo = "github-blog-rocketseat";
-    //q=${texto}%20repo:${username}/${repo}
 
     async function fetchProfile(profileId: string){
         const { data } = await api.get(`users/${profileId}`);
@@ -67,7 +64,7 @@ export function GithubProvider({children}: GithubProviderProps){
     }
 
     async function searchIssues(query: string){
-        const url = `search/issues?q=${query}%20repo:lwkas-gabriel/github-blog-rocketseat`;
+        const url = `search/issues?q=${query}%20repo:lwkas-gabriel/github-blog-rocketseat%20state:open`;
         const params = {
             //q: `${query} repo:${profileId}/${repo}`,
             _sort: 'number',
@@ -114,7 +111,6 @@ export function GithubProvider({children}: GithubProviderProps){
             profile,
             searchIssues,
             issues,
-            //setProfileId,
         }}>
             {children}
         </GithubContext.Provider>
